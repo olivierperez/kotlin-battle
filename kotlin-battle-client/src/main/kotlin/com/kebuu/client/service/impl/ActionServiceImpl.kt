@@ -1,10 +1,7 @@
 package com.kebuu.client.service.impl
 
 import com.kebuu.client.service.ActionService
-import com.kebuu.core.Dimension
-import com.kebuu.core.Position
-import com.kebuu.core.action.MoveAction
-import com.kebuu.core.action.NoAction
+import com.kebuu.client.service.strategy.TreasureHunterStrategy
 import com.kebuu.core.action.StepAction
 import com.kebuu.core.dto.GameInfo
 import org.springframework.stereotype.Service
@@ -13,6 +10,9 @@ import org.springframework.stereotype.Service
 class ActionServiceImpl : ActionService {
 
     override fun action(gameInfo: GameInfo): StepAction {
-        return NoAction()
+        Database.update(gameInfo)
+
+        val strategy = TreasureHunterStrategy()
+        return strategy.action()
     }
 }
